@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Quantizer</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+
+<body>
+    <h2 id="title">IMAGE QUANTIZER</h2>
+    <div id="image_container">
+        <form id="upload" action="/upload" method="post" enctype="multipart/form-data">
+
+            <input type="file" name="file" required onchange="this.form.submit()">
+        </form>
+
+        {% if original_img_base64 %}
+        <img src="data:image/png;base64,{{ original_img_base64 }}" alt="Uploaded Image"
+            style="max-width: 400px; max-height: 400px;">
+        {% endif %}
+
+        {% if error_message %}
+        <p>{{ error_message }}</p>
+        {% endif %}
+
+        {% if processed_img_base64 %}
+        <h3>Processed Image:</h3>
+        <img src="data:image/png;base64,{{ processed_img_base64 }}" alt="Processed Image"
+            style="max-width: 400px; max-height: 400px;">
+        {% endif %}
+
+    </div>
+    <!-- Processing Form (Only appears if an image is uploaded) -->
+
+    <form action="/quantize" method="post">
+        <label for="num_colors">Number of Colors:</label>
+        <input type="number" name="num_colors" min="1" max="15" value="10" required><br><br>
+
+        <label for="iterations">Iterations:</label>
+        <input type="number" name="iterations" min="1" max="15" value="10" required><br><br>
+        <button type="submit" {% if not original_img_base64 %}disabled{% endif %}>Process Image</button>
+    </form>
+
+
+    <!-- Display Processed Image -->
+</body>
+
+</html>
