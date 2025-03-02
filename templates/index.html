@@ -11,27 +11,32 @@
 <body>
     <h2 id="title">IMAGE QUANTIZER</h2>
     <div id="image_container">
-        <form id="upload" action="/upload" method="post" enctype="multipart/form-data">
-
-            <input type="file" name="file" required onchange="this.form.submit()">
+        <form id="upload_box_container" action="/upload" method="post" enctype="multipart/form-data">
+            <div id="upload_box" onclick="document.getElementById('file_input').click()">
+                <input type="file" id="file_input" name="file" required onchange="this.form.submit()" hidden>
+                {% if original_img_base64 %}
+                    <img src="data:image/png;base64,{{ original_img_base64 }}" alt="Uploaded Image">
+                {% else %}
+                    <span id="{% if error_message %}error-text{% endif %}" class="spantext">
+                        {{ error_message if error_message else "Click here to upload image" }}
+                    </span>
+                {% endif %}
+                {% if processed_img_base64 %}
+                    <h3>Uploaded Image</h3>
+                {% endif %}
+            </div>
         </form>
-
-        {% if original_img_base64 %}
-        <img src="data:image/png;base64,{{ original_img_base64 }}" alt="Uploaded Image"
-            style="max-width: 400px; max-height: 400px;">
-        {% endif %}
-
-        {% if error_message %}
-        <p>{{ error_message }}</p>
-        {% endif %}
-
-        {% if processed_img_base64 %}
-        <h3>Processed Image:</h3>
-        <img src="data:image/png;base64,{{ processed_img_base64 }}" alt="Processed Image"
-            style="max-width: 400px; max-height: 400px;">
-        {% endif %}
-
+    
+        <div id="processed_box">
+            {% if processed_img_base64 %}
+                <img src="data:image/png;base64,{{ processed_img_base64 }}" alt="Processed Image">
+                <h3>Processed Image</h3>
+            {% else %}
+                <span class="spantext">Upload image on the right side box</span>
+            {% endif %}
+        </div>
     </div>
+    
     <!-- Processing Form (Only appears if an image is uploaded) -->
 
     <form action="/quantize" method="post">
