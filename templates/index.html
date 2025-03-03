@@ -6,50 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Quantizer</title>
     <link rel="stylesheet" href="../static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h2 id="title">IMAGE QUANTIZER</h2>
+    <p id="title">IMAGE QUANTIZER</p>
     <div id="image_container">
-        <form id="upload_box" action="/upload" method="post" enctype="multipart/form-data" onclick="document.getElementById('file_input').click()">
+        <form id="upload_box" action="/upload" method="post" enctype="multipart/form-data"
+            onclick="document.getElementById('file_input').click()">
             <input type="file" id="file_input" name="file" required onchange="this.form.submit()" hidden>
             {% if original_img_base64 %}
-                <img src="data:image/png;base64,{{ original_img_base64 }}" alt="Uploaded Image">
+            <img src="data:image/png;base64,{{ original_img_base64 }}" alt="Uploaded Image">
             {% else %}
-                <span id="{% if error_message %}error-text{% endif %}" class="spantext">
-                    {{ error_message if error_message else "Click here to upload image" }}
-                </span>
+            <span id="{% if error_message %}error-text{% endif %}" class="spantext">
+                {{ error_message if error_message else "CLICK HERE TO UPLOAD IMAGE" }}
+            </span>
             {% endif %}
             {% if original_img_base64 %}
-                <h3>Uploaded Image</h3>
+            <h3>Uploaded Image</h3>
             {% endif %}
         </form>
-    
+
         <div id="processed_box">
             {% if processed_img_base64 %}
-                <img src="data:image/png;base64,{{ processed_img_base64 }}" alt="Processed Image">
-                <h3>Processed Image</h3>
+            <img src="data:image/png;base64,{{ processed_img_base64 }}" alt="Processed Image">
+            <h3>Processed Image</h3>
             {% elif original_img_base64 %}
-                <span class="spantext">Click Process Image Button to proceed</span>
+            <span class="spantext">CLICK "PROCESS IMAGE" BUTTON TO PROCEED</span>
             {% else %}
-                <span class="spantext">Upload image on the right side box</span>
+            <span class="spantext">UPLOAD IMAGE TO PROCEED</span>
             {% endif %}
         </div>
     </div>
-    
+
     <!-- Processing Form (Only appears if an image is uploaded) -->
 
-    <form action="/quantize" method="post">
-        <label for="num_colors">Number of Colors:</label>
-        <input type="number" name="num_colors" min="1" max="15" value="10" required><br><br>
-
-        <label for="iterations">Iterations:</label>
-        <input type="number" name="iterations" min="1" max="15" value="10" required><br><br>
-        <button type="submit" {% if not original_img_base64 %}disabled{% endif %}>Process Image</button>
+    <form id="submit_form" action="/quantize" method="post">
+        <div id="ranges">
+            <label for="num_colors">NUMBER OF COLORS: <span id="num_colors_value">10</span></label>
+            <input type="range" id="num_colors" name="num_colors" min="1" max="15" value="10"
+                oninput="updateValue('num_colors')">
+        </div>
+        <div id="ranges">
+            <label for="iterations">ITERATIONS: <span id="iterations_value">10</span></label>
+            <input type="range" id="iterations" name="iterations" min="1" max="15" value="10"
+                oninput="updateValue('iterations')">
+        </div>
+        <button id="submit_button" type="submit" {% if not original_img_base64 %}disabled{% endif %}>PROCESS IMAGE</button>
     </form>
 
-
-    <!-- Display Processed Image -->
+    <script>
+        function updateValue(id) {
+            document.getElementById(id + "_value").textContent = document.getElementById(id).value;
+        }
+    </script>
 </body>
-
 </html>

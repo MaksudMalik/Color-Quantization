@@ -23,7 +23,7 @@ async def upload_image(request: Request, file: UploadFile = File(...)):
     if file.content_type.lower() not in ALLOWED_MIME_TYPES:
         return templates.TemplateResponse(
             "index.html",
-            {"request": request, "error_message": "Upload a valid photo"},
+            {"request": request, "error_message": "UPLOAD A VALID PHOTO"},
         )
     contents = await file.read()
     img_buffer = np.frombuffer(contents, np.uint8)
