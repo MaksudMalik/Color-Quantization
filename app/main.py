@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, Form, Request, Cookie, Response
+from fastapi import FastAPI, File, UploadFile, Form, Request, Response
 import numpy as np
 import cv2
 import base64

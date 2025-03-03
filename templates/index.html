@@ -17,7 +17,7 @@
         <form id="upload_box" action="/upload" method="post" enctype="multipart/form-data">
             <input type="file" id="file_input" name="file" required hidden>
             {% if original_img_base64 %}
-            <img src="data:image/png;base64,{{ original_img_base64 }}" alt="Uploaded Image">
+            <img id="original_image" src="data:image/png;base64,{{ original_img_base64 }}" alt="Uploaded Image">
             {% else %}
             <span id="{% if error_message %}error-text{% endif %}" class="spantext">
                 {{ error_message if error_message else "CLICK HERE TO UPLOAD IMAGE" }}
@@ -30,7 +30,7 @@
 
         <div id="processed_box">
             {% if processed_img_base64 %}
-            <img src="data:image/png;base64,{{ processed_img_base64 }}" alt="Processed Image">
+            <img id="processed_image" src="data:image/png;base64,{{ processed_img_base64 }}" alt="Processed Image">
             <h3>PROCESSED IMAGE</h3>
             {% elif original_img_base64 %}
             <span class="spantext">CLICK "PROCESS IMAGE" BUTTON TO PROCEED</span>

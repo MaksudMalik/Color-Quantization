@@ -148,6 +148,7 @@ input[type="range"]::-webkit-slider-thumb {
     #ranges{
         width: 48%;
         height: 42%;
+        font-size: 100%;
     }
     #submit_button{
         font-size: 200%;
