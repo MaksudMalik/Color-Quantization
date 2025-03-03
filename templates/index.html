@@ -14,9 +14,8 @@
 <body>
     <p id="title">IMAGE QUANTIZER</p>
     <div id="image_container">
-        <form id="upload_box" action="/upload" method="post" enctype="multipart/form-data"
-            onclick="document.getElementById('file_input').click()">
-            <input type="file" id="file_input" name="file" required onchange="this.form.submit()" hidden>
+        <form id="upload_box" action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" id="file_input" name="file" required hidden>
             {% if original_img_base64 %}
             <img src="data:image/png;base64,{{ original_img_base64 }}" alt="Uploaded Image">
             {% else %}
@@ -25,14 +24,14 @@
             </span>
             {% endif %}
             {% if original_img_base64 %}
-            <h3>Uploaded Image</h3>
+            <h3>UPLOADED IMAGE</h3>
             {% endif %}
         </form>
 
         <div id="processed_box">
             {% if processed_img_base64 %}
             <img src="data:image/png;base64,{{ processed_img_base64 }}" alt="Processed Image">
-            <h3>Processed Image</h3>
+            <h3>PROCESSED IMAGE</h3>
             {% elif original_img_base64 %}
             <span class="spantext">CLICK "PROCESS IMAGE" BUTTON TO PROCEED</span>
             {% else %}
@@ -41,26 +40,18 @@
         </div>
     </div>
 
-    <!-- Processing Form (Only appears if an image is uploaded) -->
-
     <form id="submit_form" action="/quantize" method="post">
         <div id="ranges">
-            <label for="num_colors">NUMBER OF COLORS: <span id="num_colors_value">10</span></label>
-            <input type="range" id="num_colors" name="num_colors" min="1" max="15" value="10"
-                oninput="updateValue('num_colors')">
+            <label for="num_colors">NO. OF COLORS: <span id="num_colors_value">10</span></label>
+            <input type="range" id="num_colors" name="num_colors" min="1" max="15" value="10">
         </div>
         <div id="ranges">
             <label for="iterations">ITERATIONS: <span id="iterations_value">10</span></label>
-            <input type="range" id="iterations" name="iterations" min="1" max="15" value="10"
-                oninput="updateValue('iterations')">
+            <input type="range" id="iterations" name="iterations" min="1" max="15" value="10">
         </div>
         <button id="submit_button" type="submit" {% if not original_img_base64 %}disabled{% endif %}>PROCESS IMAGE</button>
     </form>
-
-    <script>
-        function updateValue(id) {
-            document.getElementById(id + "_value").textContent = document.getElementById(id).value;
-        }
-    </script>
+    <script src="../static/script.js"></script>
 </body>
+
 </html>

@@ -1,7 +1,6 @@
 body {
     font-family: "Jersey 10", sans-serif;
     text-align: center;
-    margin: 0%;
     background-color: #1c1c1c;
     color: #ffffff;
     display: flex;
@@ -9,7 +8,6 @@ body {
     align-items: center;
 }
 #title{
-    
     font-weight: 400;
     font-size: 7vw;
     margin-bottom: 0%;
@@ -21,19 +19,18 @@ body {
 #image_container {
     font-weight: 400;
     font-size: 200%;
-    width: 90vw;
-    margin-top: 1%;
-    margin-bottom: 2.5%;
+    width: 80vw;
+    height: 50vh;
+    margin: 1% 0 2.5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 45vh;
 }
+    
 #upload_box, #processed_box {
-    width: 42.5vw;
+    width: 48%;
     height: 100%;
     border: 2px solid white;
-    border-radius: 0.5em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -60,7 +57,7 @@ img {
 }
 
 .spantext{
-    width: 45%;
+    width: 60%;
 }
 h3{
     display: flex;
@@ -68,16 +65,16 @@ h3{
     justify-content: center;
     color: black;
     background-color: #ffffff;
-    height: 10%;
+    height: 15%;
     width: 100%;
     margin: 0%;
     font-size: 90%;
+    font-weight: lighter;
 }
 #submit_form{
-    width: 90vw;
+    width: 80vw;
     height: 10vh;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
@@ -85,8 +82,7 @@ h3{
     font-weight: 400;
     font-size: 150%;
     border:2px solid #ffffff;
-    border-radius: 0.5em;
-    width: 28.5vw;
+    width: 32%;
     height: 90%;
     display: flex;
     flex-direction: column;
@@ -94,9 +90,12 @@ h3{
     align-items: center;
     cursor: pointer;
 }
-
+#submit_button{
+    font-family: "Jersey 10", sans-serif;
+    font-size: 250%;
+}
 #submit_button:hover{
-    background-color: #333333;
+    background-color: #d6d6d6;
 }  
 #submit_button:disabled{
     background-color: #3f3f3f;
@@ -116,7 +115,6 @@ input[type="range"] {
     margin-bottom: 2%;
 }
 
-/* Slider thumb */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -128,11 +126,33 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
 }
 
-/* input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    background: black;
-    border: 2px solid white;
-    border-radius: 50%;
-    cursor: pointer;
-} */
+@media (max-width : 900px) {
+    #title{
+        font-size: 10vw;
+    }
+    #image_container{
+        flex-direction: column;
+        height: 60vh;
+    }
+    #upload_box, #processed_box {
+        width: 100%;
+        height: 47%;
+    }
+    #submit_form{
+        height: 21vh;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    #ranges{
+        width: 48%;
+        height: 42%;
+    }
+    #submit_button{
+        font-size: 200%;
+        width: 100%;
+        height: 30%;
+    }
+}
+
