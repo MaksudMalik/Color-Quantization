@@ -1,15 +1,16 @@
 from fastapi import FastAPI, File, UploadFile, Form, Request, Response
-import numpy as np
-import cv2
-import base64
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from process import process_image
+import numpy as np
+import base64
+import cv2
+import os
 
 app = FastAPI()
 templates = Jinja2Templates(directory="../templates")
-app.mount("/static", StaticFiles(directory="../static"), name="static")
+app.mount("/static", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "..", "static")), name="static")
 
 image_storage = {"original": None}
 ALLOWED_MIME_TYPES = {"image/png", "image/jpeg", "image/jpg"}
