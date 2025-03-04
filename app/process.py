@@ -1,5 +1,5 @@
 import numpy as np
-from app.K_Means_Clustering import Kmeans
+from K_Means_Clustering import Kmeans
 import cv2
 
 def get_pixel_vals(image):

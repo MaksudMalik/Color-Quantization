@@ -5,7 +5,7 @@ import base64
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
-from app.process import process_image
+from process import process_image
 
 app = FastAPI()
 templates = Jinja2Templates(directory="../templates")
