@@ -2,7 +2,7 @@ from fastapi import FastAPI, File, UploadFile, Form, Request, Response
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
-from process import process_image
+from app.process import process_image
 import numpy as np
 import base64
 import cv2
