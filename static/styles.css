@@ -10,15 +10,16 @@ body {
 #title{
     font-weight: 400;
     font-size: 7vw;
-    margin-bottom: 0%;
+    margin-bottom: 1%;
     margin-top: 1%;
 }
-#error-text{
+#error_text{
+    display: none;
     color: red;
 }
 #image_container {
     font-weight: 400;
-    font-size: 200%;
+    font-size: 3vw;
     width: 80vw;
     height: 50vh;
     margin: 1% 0 2.5%;
@@ -55,11 +56,15 @@ img {
     object-fit: contain;
 }
 
-.spantext{
-    width: 60%;
+.original_image, .processed_image{
+    display: none;
+}
+
+p{
+    width: 75%;
+    font-size: 120%;
 }
 h3{
-    display: flex;
     align-items: center;
     justify-content: center;
     color: #1e1f22;
@@ -92,7 +97,7 @@ h3{
 #submit_button{
     background-color: #dfe8e8;
     font-family: "Jersey 10", sans-serif;
-    font-size: 250%;
+    font-size: 3.5vw;
 }
 #submit_button:hover{
     background-color: #bbc5cf;
@@ -125,13 +130,14 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
 }
 
-@media (max-width : 900px) {
+@media (max-width : 512px) {
     #title{
         font-size: 10vw;
     }
     #image_container{
         flex-direction: column;
         height: 60vh;
+        font-size: 5vw;
     }
     #upload_box, #processed_box {
         width: 100%;

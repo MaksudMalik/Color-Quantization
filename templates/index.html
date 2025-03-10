@@ -13,31 +13,22 @@
 </head>
 
 <body>
-    <p id="title">IMAGE QUANTIZER</p>
+    <header id="title">IMAGE QUANTIZER</header>
     <div id="image_container">
         <form id="upload_box" action="/upload" method="post" enctype="multipart/form-data">
             <input type="file" id="file_input" name="file" required hidden>
-            {% if original_img_base64 %}
-            <img id="original_image" src="data:image/png;base64,{{ original_img_base64 }}" alt="Uploaded Image">
-            {% else %}
-            <span id="{% if error_message %}error-text{% endif %}" class="spantext">
-                {{ error_message if error_message else "CLICK HERE TO UPLOAD IMAGE" }}
-            </span>
-            {% endif %}
-            {% if original_img_base64 %}
-            <h3>UPLOADED IMAGE</h3>
-            {% endif %}
+            <img class="original_image" src="none" alt="Uploaded Image">
+            <h3 class="original_image">UPLOADED IMAGE</h3>
+            <p id="empty_upload_box">CLICK HERE TO UPLOAD IMAGE</p>
+            <p id="error_text">UPLOAD A VALID PHOTO</p>
+            
         </form>
 
         <div id="processed_box">
-            {% if processed_img_base64 %}
-            <img id="processed_image" src="data:image/png;base64,{{ processed_img_base64 }}" alt="Processed Image">
-            <h3>PROCESSED IMAGE</h3>
-            {% elif original_img_base64 %}
-            <span class="spantext">CLICK "PROCESS IMAGE" BUTTON TO PROCEED</span>
-            {% else %}
-            <span class="spantext">UPLOAD IMAGE TO PROCEED</span>
-            {% endif %}
+            <img class="processed_image" src="none" alt="Processed Image">
+            <h3 class="processed_image">PROCESSED IMAGE</h3>
+            <p class="original_image">CLICK "PROCESS IMAGE" BUTTON TO PROCEED</p>
+            <p id="empty_processed_box">UPLOAD IMAGE TO PROCEED</p>
         </div>
     </div>
 
@@ -50,7 +41,7 @@
             <label for="iterations">ITERATIONS: <span id="iterations_value">10</span></label>
             <input type="range" id="iterations" name="iterations" min="1" max="15" value="10">
         </div>
-        <button id="submit_button" type="submit" {% if not original_img_base64 %}disabled{% endif %}>PROCESS IMAGE</button>
+        <button id="submit_button" type="button" disabled>PROCESS IMAGE</button>
     </form>
     <script src="../static/script.js"></script>
 </body>
