@@ -22,26 +22,18 @@ async def homepage(request: Request):
 async def upload_image(request: Request, file: UploadFile = File(...)):
     if file.content_type.lower() not in ALLOWED_MIME_TYPES:
         return JSONResponse(content={"error_message": "UPLOAD A VALID PHOTO"}, status_code=400)
-
     contents = await file.read()
-    img_buffer = np.frombuffer(contents, np.uint8)
-    image = cv2.imdecode(img_buffer, cv2.IMREAD_COLOR)
-    _, image = cv2.imencode('.png', image)
-    image = base64.b64encode(image).decode('utf-8')
-
+    image = base64.b64encode(contents).decode('utf-8')
     return JSONResponse(content={"original_img_base64": image})
 
 @app.post("/quantize")
-async def quantize_image(request: Request, num_colors: int = Form(...), iterations: int = Form(...), img_base64: str = Form(...)):
-    original_data = base64.b64decode(img_base64)
-    img_buffer = np.frombuffer(original_data, np.uint8)
-    image = cv2.imdecode(img_buffer, cv2.IMREAD_COLOR)
-
-    quantized_img = process_image(image, num_colors, iterations)
-
-    _, proc_buffer = cv2.imencode('.png', quantized_img)
+async def quantize_image(request: Request, num_colors: int = Form(...), iterations: int = Form(...), img: UploadFile = File(...)):
+    img_bytes=await img.read()
+    img_array=np.frombuffer(img_bytes, np.uint8)
+    image=cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+    quantized_img=process_image(image, num_colors, iterations)
+    _, proc_buffer=cv2.imencode('.png', quantized_img)
     processed_img_base64 = base64.b64encode(proc_buffer).decode('utf-8')
-
     return JSONResponse(content={
         "processed_img_base64": processed_img_base64
     })

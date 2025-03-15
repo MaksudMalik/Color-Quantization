@@ -28,7 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fileInput.addEventListener("change", async function () {
         const formData = new FormData();
-        formData.append("file", fileInput.files[0]);
+        original_file=fileInput.files[0]
+        formData.append("file", original_file);
+        
         const response = await fetch("/upload", {
             method: "POST",
             body: formData
@@ -36,12 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
             const data = await response.json();
             document.querySelector('img.original_image').src = `data:image/png;base64,${data.original_img_base64}`;
-            original_file = data.original_img_base64;
             before_upload_box.style.display = 'none';
             before_processed_box.style.display = 'none';
             error_text.style.display="none";
             uploadedContent.forEach(function(element) {
                 element.style.display = "flex";
+            });
+            processedContent.forEach(function(element) {
+                element.style.display = "none";
             });
             submit_button.disabled = false;
         }
@@ -63,10 +67,12 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("submit_button").addEventListener("click", async function () {
         const numColors = document.getElementById("num_colors").value;
         const iterations = document.getElementById("iterations").value;
+
+        console.log(original_file.slice(-10))
         const formData = new FormData();
         formData.append("num_colors", numColors);
         formData.append("iterations", iterations);
-        formData.append("img_base64", original_file);
+        formData.append("img", original_file); 
         const response = await fetch("/quantize", {
             method: "POST",
             body: formData
